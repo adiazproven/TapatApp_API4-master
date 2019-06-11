@@ -53,7 +53,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
     private ImageView imageView_awakeAsleep;
     private ImageView imageView_eyepatch;
     private TextView textView_hoursLeft;
-    private TextView textView_hoursTitle;
     // Listeners
     private OnClickListener listener;
     // Attributes
@@ -354,8 +353,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
             case "eyePatchInit":
                 showlog("eyePatchInit");
                 imageView_eyepatch.setImageResource(R.drawable.witheyepatch);
-                textView_hoursTitle.setVisibility(View.VISIBLE);
-                textView_hoursLeft.setVisibility(View.VISIBLE);
                 model.getTemp_child().setWearingEyepatch(true);
                 eyepatchTap = (Tap) model.getObject();
                 model.setMethod("getTreatmentTime");
@@ -368,8 +365,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
             case "eyePatchEnd":
                 showlog("eyePatchEnd");
                 imageView_eyepatch.setImageResource(R.drawable.withouteyepatch);
-                textView_hoursTitle.setVisibility(View.GONE);
-                textView_hoursLeft.setVisibility(View.GONE);
                 model.getTemp_child().setWearingEyepatch(false);
                 eyepatchTap = null;
                 model.getTemp_child().setTreatment_time_today((Integer) model.getObject());
@@ -489,11 +484,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
     private void setHoursLeft() {
         showlog(MyTimeStamp.now().plusSeconds(model.getTemp_child().getTreatment_time_today()).format3());
         if (!model.getTemp_child().isWearingEyepatch()) {
-            textView_hoursTitle.setVisibility(View.GONE);
-            textView_hoursLeft.setVisibility(View.GONE);
         } else if (model.getTemp_child().isWearingEyepatch() || model.getTemp_child().isAwake() || !model.getTemp_child().isAwake()) {
-            textView_hoursTitle.setVisibility(View.VISIBLE);
-            textView_hoursLeft.setVisibility(View.VISIBLE);
             textView_hoursLeft.setText(MyTimeStamp.now().plusSeconds(model.getTemp_child().getTreatment_time_today()).format3());
         }
         if (awakeTap != null) {
