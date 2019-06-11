@@ -143,15 +143,18 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
                 switch (view.getId()) {
                     case R.id.imageView_awakeHistory:
                         goToActivity(Activity_ListOfTaps.class, "type", "awake");
+                        finish();
                         break;
                     case R.id.imageView_eyepatchHistory:
                         goToActivity(Activity_ListOfTaps.class, "type", "eyepatch");
+                        finish();
                         break;
                     case R.id.button_ok:
                         if (!update_view()) modifyProfile();
                         break;
                     case R.id.button_cancel:
                         goToActivity(Activity_Main.class);
+                        finish();
                         break;
                     case R.id.radioButton_hours:
                         treatment_selected = Child.TREATMENT_HOURS;
@@ -330,8 +333,6 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         alertDialog.setNegativeButton("No", null);
         alertDialog.create().show();
     }
-
-    //Toast.makeText(getApplicationContext(),"Contraseña cambiada", Toast.LENGTH_SHORT); TODO
 
     /**
      * Shows a dialog in which the user inputs the username of another user.

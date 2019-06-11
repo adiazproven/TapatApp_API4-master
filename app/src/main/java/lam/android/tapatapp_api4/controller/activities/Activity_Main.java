@@ -316,15 +316,17 @@ public class Activity_Main extends AppCompatActivity implements Result {
                 eyepatchTap = null;
                 if (awakeTap == null) {
                     old_awakeTap = null;
+                    showtoast("Actualizando", "");
                 } else {
                     old_awakeTap = awakeTap;
                 }
                 awakeTap = model.getTaps().get(0);
+                if(old_awakeTap != null && old_awakeTap.getId() != awakeTap.getId()){
+                    showtoast("Actualizando", "");
+                }
             }// EYEPATCH -> AT.endDate (INACTIVO) = EYEPATCH.endDate = Tenía parche cuando se durmió
             else if (model.getTaps().get(0).getStatus_id() == 2 && model.getTaps().get(0).getEnd_date() != null) {
-                showlog("first if");
                 if (addAwakeTap && awakeTap == null) {
-                    showlog("second if");
                     model.getTemp_child().setAwake(false);
                     model.getTemp_child().setWearingEyepatch(false);
                     eyepatchTap = null;
@@ -337,18 +339,26 @@ public class Activity_Main extends AppCompatActivity implements Result {
                     model.getTemp_child().setAwake(true);
                     if (awakeTap == null) {
                         old_awakeTap = null;
+                        showtoast("Actualizando", "");
                     } else {
                         old_awakeTap = awakeTap;
                     }
                     awakeTap = tap;
+                    if(old_awakeTap != null && old_awakeTap.getId() != awakeTap.getId()){
+                        showtoast("Actualizando", "");
+                    }
                 } else {
                     model.getTemp_child().setWearingEyepatch(true);
                     if (eyepatchTap == null) {
                         old_eyepatchTap = null;
+                        showtoast("Actualizando", "");
                     } else {
                         old_eyepatchTap = eyepatchTap;
                     }
                     eyepatchTap = tap;
+                    if(old_eyepatchTap != null && old_eyepatchTap.getId() != eyepatchTap.getId()){
+                        showtoast("Actualizando", "");
+                    }
                 }
             }
         }
@@ -357,23 +367,16 @@ public class Activity_Main extends AppCompatActivity implements Result {
         updateView();
         setHoursLeft();
 
-        showlog("BOOLENA" + addAwakeTap);
-        showlog("BOOLENA" + addEyepatchTap);
         if (addAwakeTap && awakeTap != null) {
-            showlog("settaps1");
             addAwakeTap = false;
             if (old_awakeTap != null && old_awakeTap.getId() == awakeTap.getId()) {
                 changeStatusAwake();
-            } /* if (old_awakeTap == null && awakeTap == null) {
-                changeStatusAwake();
-            }*/
+            }
         } else if (addEyepatchTap && old_awakeTap != null && awakeTap != null) {
             addEyepatchTap = false;
             if (old_eyepatchTap != null && eyepatchTap != null && old_eyepatchTap.getId() == eyepatchTap.getId()) {
-                showlog("BOOLENA22222");
                 changeStatusEyepatch();
             } else if (old_eyepatchTap == null && eyepatchTap == null) {
-                showlog("BOOLENA333333");
                 changeStatusEyepatch();
             }
         }
@@ -484,7 +487,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
                 setHoursLeft();
                 showlog("awakeEnd");
                 if (model.getTemp_child().isWearingEyepatch()) {
-                    showlog("awakeEnd1");
                     model.setMethod("eyePatchEnd");
                     //Modifica el ENDDATE del EYEPATCHTAP por el ENDATE DEL AWAKETAP
                     model.modifyEndDateOfEyePatchTap(eyepatchTap.getId(), awakeTap.getId(), model.getTemp_child().getId());
@@ -504,7 +506,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
                 setHoursLeft();
                 break;
             case "eyePatchEnd":
-                showlog("eyePatchEnd");
                 imageView_eyepatch.setImageResource(R.drawable.withouteyepatch);
                 model.getTemp_child().setWearingEyepatch(false);
                 eyepatchTap = null;
