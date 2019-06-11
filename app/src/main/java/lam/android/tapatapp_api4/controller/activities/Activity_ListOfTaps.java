@@ -177,6 +177,10 @@ public class Activity_ListOfTaps extends AppCompatActivity implements Result {
                 customAdapter.toggleDeleteOption();
                 init_or_refresh_attributes();
                 break;
+
+            case R.id.menuItem_goBack:
+                goToActivity(Activity_Main.class);
+                break;
         }
         return true;
     }

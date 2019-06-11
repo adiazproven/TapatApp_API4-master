@@ -154,6 +154,10 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
                 model.setMethod("getLogout");
                 model.getLogout();
                 break;
+
+            case R.id.menuItem_goBack:
+                goToActivity(Activity_Main.class);
+                break;
         }
         return true;
     }

@@ -167,10 +167,6 @@ public class Activity_UserConfig extends AppCompatActivity implements Result
                 model.setMethod("getLogout");
                 model.getLogout();
                 break;
-
-            case R.id.menuItem_goBack:
-                finish();
-                break;
         }
         return true;
     }
