@@ -154,13 +154,7 @@ public class MyTimeStamp
     public long minus (MyTimeStamp other)
     {
         MyTimeStamp mts = new MyTimeStamp(this);
-        mts.calendar.add(Calendar.YEAR,         -other.getYear  ());
-        mts.calendar.add(Calendar.MONTH,        -other.getMonth ());
-        mts.calendar.add(Calendar.DAY_OF_MONTH, -other.getDay   ());
-        mts.calendar.add(Calendar.HOUR_OF_DAY,  -other.getHour  ());
-        mts.calendar.add(Calendar.MINUTE,       -other.getMinute());
-        mts.calendar.add(Calendar.SECOND,       -other.getSecond());
-        return mts.calendar.getTimeInMillis() / 1000;
+        return (mts.calendar.getTimeInMillis() - other.calendar.getTimeInMillis()) / 1000;
     }
 
     /** returns this same MyTimeStamp but 30 days ago */
@@ -175,7 +169,7 @@ public class MyTimeStamp
     {
         MyTimeStamp mts = new MyTimeStamp(this);
         mts.calendar.add(Calendar.SECOND, +seconds);
-        showlog(mts.toString());
+        showlog(mts.toString() + "--SECOND");
         return mts;
     }
 

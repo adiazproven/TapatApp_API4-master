@@ -485,8 +485,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
         showlog(MyTimeStamp.now().plusSeconds(model.getTemp_child().getTreatment_time_today()).format3());
         if (!model.getTemp_child().isWearingEyepatch()) {
         } else if (model.getTemp_child().isWearingEyepatch() || model.getTemp_child().isAwake() ) { //|| !model.getTemp_child().isAwake()
-            int hoursLeft = model.getTemp_child().getTreatment_time_today() - (int) (long) - MyTimeStamp.now().minus(eyepatchTap.getInit_date());
-            showlog("hoursLeft "+ hoursLeft); // BIEN
+            int hoursLeft = model.getTemp_child().getTreatment_time_today() - (int) (long) MyTimeStamp.now().minus(eyepatchTap.getInit_date());
             textView_hoursLeft.setText(MyTimeStamp.now().plusSeconds(hoursLeft).format3());
         }
         if (awakeTap != null) {
