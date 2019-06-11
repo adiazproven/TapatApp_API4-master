@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Configuracion de usuario" android:id="@+id/menuItem_userConfig"></item>
+    <item android:title="Cerrar sesión" android:id="@+id/menuItem_logout"></item>
+    <item android:title="Volver" android:id="@+id/menuItem_goBack"></item>
+</menu>

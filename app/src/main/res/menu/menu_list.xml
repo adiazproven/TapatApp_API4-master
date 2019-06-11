@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Añadir nuevo" android:id="@+id/menuItem_new"></item>
+    <item android:title="Borrar registros" android:id="@+id/menuItem_delete"></item>
+    <item android:title="Configuración de usuario" android:id="@+id/menuItem_userConfig"></item>
+    <item android:title="Cerrar sesión" android:id="@+id/menuItem_logout"></item>
+</menu>

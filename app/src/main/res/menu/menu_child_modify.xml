@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Eliminar perfil" android:id="@+id/menuItem_deleteChild"></item>
+    <item android:title="Dar acceso a otro usuario" android:id="@+id/menuItem_shareChild"></item>
+    <item android:title="Cerrar sesión" android:id="@+id/menuItem_logout"></item>
+</menu>

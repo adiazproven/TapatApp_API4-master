@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:gravity="center"
+        android:contentDescription="@string/imageView_background"
+        app:srcCompat="@drawable/fishmosaic2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/textView_childName"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <EditText
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúáéíóú"
+            android:id="@+id/editText_childName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="center"
+            android:inputType="text"
+
+            android:maxLength="20"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <TextView
+            android:id="@+id/errorMessage_childName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_red_dark"
+
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/counter_type"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/radioButton_hours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:checked="true"
+                    android:gravity="start"
+
+                    android:text="@string/hours"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_percentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="start"
+                    android:text="@string/percentage"
+
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText_hoursOrPercentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="80"
+                    android:background="@android:drawable/editbox_background"
+                    android:gravity="center"
+
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual" />
+
+                <TextView
+                    android:id="@+id/textView_hours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="center"
+                    android:text="@string/lower_case_hours"
+
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual" />
+
+                <TextView
+                    android:id="@+id/textView_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="center_vertical"
+                    android:text="@string/percentage_symbol"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView_infoHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/hours_info"
+            android:textAlignment="center"
+
+            android:textColor="@android:color/background_dark"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <TextView
+            android:id="@+id/textView_infoPercentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/percentage_info"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/background_dark"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:fontFamily="casual"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/errorMessage_hoursOrPercentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_red_dark"
+
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/title_average_hours"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_optionAverageHoursAwake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editText_averageHoursAwake"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:background="@android:drawable/editbox_background"
+                android:gravity="center"
+
+                android:inputType="number"
+                android:maxLength="2"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:fontFamily="casual" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:text="@string/lower_case_hours"
+                android:textAlignment="center"
+
+                android:textColor="@android:color/background_dark"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:fontFamily="casual" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/errorMessage_averageHoursAwake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_red_dark"
+
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <Button
+            android:id="@+id/button_createChild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/create_child"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:backgroundTint="@android:color/holo_blue_light"
+            app:fontFamily="casual" />
+
+    </LinearLayout>
+</RelativeLayout>

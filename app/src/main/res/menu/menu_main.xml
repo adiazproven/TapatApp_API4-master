@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Configuracion del perfil del niño/a" android:id="@+id/menuItem_childModify"></item>
+    <item android:title="Crear nuevo perfil de niño/a" android:id="@+id/menuItem_newChild"></item>
+    <item android:title="Lista de perfiles de niño/a" android:id="@+id/menuItem_childrenList"></item>
+    <item android:title="Configuracion de usuario" android:id="@+id/menuItem_userConfig"></item>
+    <item android:title="Cerrar sesión" android:id="@+id/menuItem_logout"></item>
+</menu>
