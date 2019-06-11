@@ -133,16 +133,18 @@ public class Activity_Main extends AppCompatActivity implements Result {
 
     // ------------------------------------------------------------------------------------- Methods
 
-    private void init_view() {
+    /**
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
+     */
+    private void init_view_and_listeners() {
         setContentView(R.layout.activity_child_basic);
         textView_childName = findViewById(R.id.textView_childName);
         imageView_awakeAsleep = findViewById(R.id.imageView_awake);
         imageView_eyepatch = findViewById(R.id.imageView_eyepatch);
         textView_hoursLeft = findViewById(R.id.textView_hoursRemaining);
         boton_reload = findViewById(R.id.button_reload_main);
-    }
 
-    private void init_listeners() {
         /*
          * Si el usuario pulsa en el botón "AÑADIR": Va al Create Profile Activity.
          * Si el usuario pulsa en el nombre del niño: Va al Children Modify Activity.
@@ -176,18 +178,16 @@ public class Activity_Main extends AppCompatActivity implements Result {
                 }
             }
         };
+
+        textView_childName.setOnClickListener(listener);
+        imageView_awakeAsleep.setOnClickListener(listener);
+        imageView_eyepatch.setOnClickListener(listener);
+        boton_reload.setOnClickListener(listener);
     }
 
     private void reload() {
         model.setMethod("getChildByID");
         model.getChildByID(model.getTemp_child().getId());
-    }
-
-    private void set_listeners() {
-        textView_childName.setOnClickListener(listener);
-        imageView_awakeAsleep.setOnClickListener(listener);
-        imageView_eyepatch.setOnClickListener(listener);
-        boton_reload.setOnClickListener(listener);
     }
 
     /**
@@ -213,14 +213,20 @@ public class Activity_Main extends AppCompatActivity implements Result {
         }
     }
 
-    // ------------------------------------------------------------------------ Start other Activity
+    // -------------------------------------------------------------- Action Bar Menu Initialization
 
+    /**
+     * Shows (inflates) the menu bar on the top
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * Gives functionality to the menu bar buttons
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -307,84 +313,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
         model.getLastTapsByChildAndStatus(model.getTemp_child().getId());
     }
 
-    @Override
-    public void Response() {
-        switch (model.getMethod()) {
-            case "getOneChildByUser":
-                setTempChild((Child) model.getObject());
-                break;
-            case "getNumberOfChildren":
-                checkChild((Integer) model.getObject());
-                break;
-            case "getChildByID":
-                Child child = (Child) model.getObject();
-                child.setRol_id(model.getTemp_child().getRol_id());
-                setTempChild(child);
-                break;
-            case "taps":
-                setTaps();
-                break;
-            case "awakeInit":
-                showlog("awakeInit");
-                imageView_awakeAsleep.setImageResource(R.drawable.awake);
-                setHoursLeft();
-                model.getTemp_child().setAwake(true);
-                Tap old_awaketap = awakeTap;
-                awakeTap = (Tap) model.getObject();
-                showlog("addAwakeTap" + addAwakeTap.toString());
-                if (addAwakeTap && old_awaketap == null) {
-                    showlog("third if");
-                    addAwakeTap = false;
-                    checkEyePatch();
-                }
-                break;
-            case "awakeEnd":
-                imageView_awakeAsleep.setImageResource(R.drawable.asleep);
-                setHoursLeft();
-                showlog("awakeEnd");
-                if (model.getTemp_child().isWearingEyepatch()) {
-                    showlog("awakeEnd1");
-                    model.setMethod("eyePatchEnd");
-                    //Modifica el ENDDATE del EYEPATCHTAP por el ENDATE DEL AWAKETAP
-                    model.modifyEndDateOfEyePatchTap(eyepatchTap.getId(), awakeTap.getId(), model.getTemp_child().getId());
-                }
-                awakeTap = null;
-                break;
-            case "eyePatchInit":
-                showlog("eyePatchInit");
-                imageView_eyepatch.setImageResource(R.drawable.witheyepatch);
-                model.getTemp_child().setWearingEyepatch(true);
-                eyepatchTap = (Tap) model.getObject();
-                model.setMethod("getTreatmentTime");
-                model.getTreatmentTime(model.getTemp_child().getId());
-                break;
-            case "getTreatmentTime":
-                model.getTemp_child().setTreatment_time_today((Integer) model.getObject());
-                setHoursLeft();
-                break;
-            case "eyePatchEnd":
-                showlog("eyePatchEnd");
-                imageView_eyepatch.setImageResource(R.drawable.withouteyepatch);
-                model.getTemp_child().setWearingEyepatch(false);
-                eyepatchTap = null;
-                model.getTemp_child().setTreatment_time_today((Integer) model.getObject());
-                setHoursLeft();
-                break;
-            /*case "modifyAwakeAverageOfChild":
-                model.modifyAwakeAverageOfChild(modifiedAwakeAverage, time, idOfChild);
-                int treatment_time_today = model.getTemp_child().getTreatment_time_today();
-                int treatment_time_today_calculate = (3600 * model.getTemp_child().getaverageAwakeADay() * model.getTemp_child().getHoras_o_porcentaje())/100;
-                if(treatment_time_today_calculate >= treatment_time_today){
-
-                }
-                break;*/
-            case "getLogout":
-                model.restart();
-                goToActivity_UserLogin();
-                break;
-        }
-    }
-
     private void setTaps() {
         Tap old_awakeTap = null;
         Tap old_eyepatchTap = null;
@@ -434,9 +362,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
             }
         }
 
-        init_view();
-        init_listeners();
-        set_listeners();
+        init_view_and_listeners();
         updateView();
         setHoursLeft();
 
@@ -528,6 +454,90 @@ public class Activity_Main extends AppCompatActivity implements Result {
         }
     }
 
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
+    @Override
+    public void Response() {
+        switch (model.getMethod()) {
+            case "getOneChildByUser":
+                setTempChild((Child) model.getObject());
+                break;
+            case "getNumberOfChildren":
+                checkChild((Integer) model.getObject());
+                break;
+            case "getChildByID":
+                Child child = (Child) model.getObject();
+                child.setRol_id(model.getTemp_child().getRol_id());
+                setTempChild(child);
+                break;
+            case "taps":
+                setTaps();
+                break;
+            case "awakeInit":
+                showlog("awakeInit");
+                imageView_awakeAsleep.setImageResource(R.drawable.awake);
+                setHoursLeft();
+                model.getTemp_child().setAwake(true);
+                Tap old_awaketap = awakeTap;
+                awakeTap = (Tap) model.getObject();
+                showlog("addAwakeTap" + addAwakeTap.toString());
+                if (addAwakeTap && old_awaketap == null) {
+                    showlog("third if");
+                    addAwakeTap = false;
+                    checkEyePatch();
+                }
+                break;
+            case "awakeEnd":
+                imageView_awakeAsleep.setImageResource(R.drawable.asleep);
+                setHoursLeft();
+                showlog("awakeEnd");
+                if (model.getTemp_child().isWearingEyepatch()) {
+                    showlog("awakeEnd1");
+                    model.setMethod("eyePatchEnd");
+                    //Modifica el ENDDATE del EYEPATCHTAP por el ENDATE DEL AWAKETAP
+                    model.modifyEndDateOfEyePatchTap(eyepatchTap.getId(), awakeTap.getId(), model.getTemp_child().getId());
+                }
+                awakeTap = null;
+                break;
+            case "eyePatchInit":
+                showlog("eyePatchInit");
+                imageView_eyepatch.setImageResource(R.drawable.witheyepatch);
+                model.getTemp_child().setWearingEyepatch(true);
+                eyepatchTap = (Tap) model.getObject();
+                model.setMethod("getTreatmentTime");
+                model.getTreatmentTime(model.getTemp_child().getId());
+                break;
+            case "getTreatmentTime":
+                model.getTemp_child().setTreatment_time_today((Integer) model.getObject());
+                setHoursLeft();
+                break;
+            case "eyePatchEnd":
+                showlog("eyePatchEnd");
+                imageView_eyepatch.setImageResource(R.drawable.withouteyepatch);
+                model.getTemp_child().setWearingEyepatch(false);
+                eyepatchTap = null;
+                model.getTemp_child().setTreatment_time_today((Integer) model.getObject());
+                setHoursLeft();
+                break;
+            /*case "modifyAwakeAverageOfChild":
+                model.modifyAwakeAverageOfChild(modifiedAwakeAverage, time, idOfChild);
+                int treatment_time_today = model.getTemp_child().getTreatment_time_today();
+                int treatment_time_today_calculate = (3600 * model.getTemp_child().getaverageAwakeADay() * model.getTemp_child().getHoras_o_porcentaje())/100;
+                if(treatment_time_today_calculate >= treatment_time_today){
+
+                }
+                break;*/
+            case "getLogout":
+                model.restart();
+                goToActivity_UserLogin();
+                break;
+        }
+    }
+
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();
@@ -538,9 +548,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
             awakeTap = null;
             model.getTemp_child().setWearingEyepatch(false);
             eyepatchTap = null;
-            init_view();
-            init_listeners();
-            set_listeners();
+            init_view_and_listeners();
             updateView();
             setHoursLeft();
             if (addAwakeTap && awakeTap == null  && old_awakeTap == null) {
@@ -566,24 +574,20 @@ public class Activity_Main extends AppCompatActivity implements Result {
             {
                 @Override public void onClick (DialogInterface dialog, int which)
                 {
-                    goToUserLogin();
+                    goToActivity(Activity_UserLogin.class);
                 }
             });
             alertDialog.create().show();
         }
     }
 
-    private void goToUserLogin() {
-        Intent intent = new Intent(this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     */
     private void goToActivity(Class activity) {
         Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        }
+        //if (model.mam.activityIsAlreadyOpened(activity)) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

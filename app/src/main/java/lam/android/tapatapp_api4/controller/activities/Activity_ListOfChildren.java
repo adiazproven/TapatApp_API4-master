@@ -36,15 +36,6 @@ import lam.android.tapatapp_api4.model.connection.NegativeResult;
  */
 public class Activity_ListOfChildren extends AppCompatActivity implements Result
 {
-    //TODO*****************************************************************
-    //TODO ARACELI -> Poner botón para hacer RELOAD en la lista de ninios
-    /*
-    * Cuando se clique en el botón:
-    *    model.setMethod("getChildrenByRol");
-        model.getChildrenByRol(model.getUserSession().getId());
-    * */
-    //TODO*****************************************************************
-
     /**
      * Show error message inside the log. For testing.
      * @param o : string or object to show
@@ -71,8 +62,6 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
 
     // ------------------------------------------------------------------------------ Initialization
 
-
-
     /**
      * First, if it needs to show data, it loads it from the server database. Then, it initializes
      * the view (layout and components) and the listeners (and sets them).
@@ -93,8 +82,10 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
         model.getChildrenByRol(model.getUserSession().getId());
     }
 
-    /** asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
-     * y le da funcionalidad a los botones anyadiendoles listeners */
+    /**
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
+     */
     private void init_view_and_listeners() {
         setContentView(R.layout.activity_list);
 
@@ -107,7 +98,7 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //int childId = list_children.get((int)id).getId();
                 model.setTemp_child(list_children.get((int) id));
-                goToActivity_Main();
+                goToActivity(Activity_Main.class);
             }
         });
 
@@ -131,14 +122,18 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
 
     // -------------------------------------------------------------- Action Bar Menu Initialization
 
-    /** infla la barra de menu de arriba */
+    /**
+     * Shows (inflates) the menu bar on the top
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
-    /** le da funcionalidad a los botones de la barra de menu */
+    /**
+     * Gives functionality to the menu bar buttons
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -162,15 +157,6 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
         return true;
     }
 
-    // ------------------------------------------------------------------------ Start other Activity
-
-    /** se va a la Activity_Main y cierra esta */
-    private void goToActivity_Main()//(int id_of_child)
-    {
-        goToActivity(Activity_Main.class);
-    }
-
-
     // -------------------------------------------------------------------------- On Server NegativeResult
 
     private void goToCreateProfileActivity() {
@@ -179,6 +165,9 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
 
     //ROL 1 = ADMINISTRADOR / CREADOR
     //ROL 2 = CUIDADOR
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
     @Override
     public void Response() {
         switch (model.getMethod()){
@@ -189,15 +178,14 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
                 break;
             case  "getLogout":
                 model.restart();
-                goToActivity_UserLogin();
+                goToActivity(Activity_UserLogin.class);
                 break;
         }
     }
 
-    private void goToActivity_UserLogin() {
-        goToActivity(Activity_UserLogin.class);
-    }
-
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();
@@ -215,32 +203,21 @@ public class Activity_ListOfChildren extends AppCompatActivity implements Result
             {
                 @Override public void onClick (DialogInterface dialog, int which)
                 {
-                    goToUserLogin();
+                    goToActivity(Activity_UserLogin.class);
                 }
             });
             alertDialog.create().show();
         }
     }
 
-    private void goToUserLogin() {
-        Intent intent = new Intent(this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //startService(new Intent(this, NotificationService.class));
-        model.mam.finishActivity(this);
-    }
-
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     */
     private void goToActivity (Class activity)
     {
         Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity))
-        { intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); }
+        //if (model.mam.activityIsAlreadyOpened(activity)) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

@@ -102,13 +102,15 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
             model.getChildByID(model.getTemp_child().getId());
         }else{
             showtoast("El nino no existe.");
-            goToActivity_Main();
+            goToActivity(Activity_Main.class);
             finish();
         }
     }
 
-    /** asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
-     * y le da funcionalidad a los botones anyadiendoles listeners */
+    /**
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
+     */
     void init_view_and_listeners() {
         setContentView(R.layout.activity_child_modify);
 
@@ -149,7 +151,7 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
                         if (!update_view()) modifyProfile();
                         break;
                     case R.id.button_cancel:
-                        goToActivity_Main();
+                        goToActivity(Activity_Main.class);
                         break;
                     case R.id.radioButton_hours:
                         treatment_selected = Child.TREATMENT_HOURS;
@@ -170,9 +172,10 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         boton_cancelarCambios.setOnClickListener(listener);
     }
 
-    /** accede al Child guardado temporalmente en el modelo (model.temp_child, que ha sido asignado
-     * en Activity_Main, que es la anterior Activity a esta) para mostrar sus datos (nombre, tipo de
-     * tratamiento y numero de horas/porcentaje) */
+    /**
+     * Access to the Child temporarily saved in the model (model.temp_child) to show its data in the
+     * correct layout components.
+     */
     public void load_view() {
         if (child != null) {
             cajaDeTexto_nombreNino.setText(child.getName());
@@ -198,14 +201,18 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
 
     // -------------------------------------------------------------- Action Bar Menu Initialization
 
-    /** infla la barra de menu de arriba */
+    /**
+     * Shows (inflates) the menu bar on the top
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_child_modify, menu);
         return true;
     }
 
-    /** le da funcionalidad a los botones de la barra de menu */
+    /**
+     * Gives functionality to the menu bar buttons
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -232,15 +239,11 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
     // --------------------------------------------------------------------------------- Update View
 
     /**
-     * UPDATE VIEW
-     * -----------
-     * Si algun dato se pasa del limite, lo cambia (ejemplo: 25 horas -> 24 horas).
-     * <p>
-     * Según el radioButton seleccionado (horas / porcentaje):
-     * Poner en blanco (ediatble) o en gris (no editable) las cajas de texto horas / porcentaje
-     * Además, mostrar informacion sobre el radioButton seleccionado (horas / porcentaje)
-     *
-     * @return "true" si ha cambiado algo o muestra algun error. "false" si no.
+     * Checks each one of the form fields.
+     * If it is superior to its limit, it shows an error (eg: 25 hours per day)
+     * Enables/Disables the editText components of hours/percentage depending on the selected option.
+     * Shows/Hides information about hours/percentage depending on the option selected.
+     * @return true if one or more errors are shown, false otherwise.
      */
     public boolean update_view() {
         // De momento no sabemos si hay algun error o no, asi que vaciamos las cajas de texto de mensajes de error.
@@ -286,6 +289,10 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
 
     // ------------------------------------------------------------------------------------- Options
 
+    /**
+     * Based on the form, it changes the data of the Child that is temporarily saved in the model (temp_child)
+     * and then it modifies its counterpart (same id) in the database.
+     */
     void modifyProfile() {
         // Child child = null;
         if (!update_view()) { //generateChildFromForm();
@@ -301,6 +308,9 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         }
     }
 
+    /**
+     * It deletes the counterpart (same id) of the Child that is temporarily saved in the model (temp_child) in the database.
+     */
     void deleteProfile() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Eliminar perfil");
@@ -322,6 +332,11 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
     }
 
     //Toast.makeText(getApplicationContext(),"Contraseña cambiada", Toast.LENGTH_SHORT); TODO
+
+    /**
+     * Shows a dialog in which the user inputs the username of another user.
+     * Then, that other user will have caretaker access (role) towards the Child that is being shown.
+     */
     void shareProfile() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Dar acceso a otro usuario");
@@ -376,13 +391,11 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         goToActivity(Activity_ListOfTaps.class, "type", type);
     }
 
-    /** se va a la Activity_Main y cierra esta */
-    void goToActivity_Main() {
-        goToActivity(Activity_Main.class);
-    }
-
     // -------------------------------------------------------------------- Server NegativeResult Listener
 
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
     @Override
     public void Response() {
         switch (model.getMethod()) {
@@ -393,12 +406,12 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
                 break;
             case "modifyChild":
                 model.setTemp_child(child);
-                goToActivity_Main();
+                goToActivity(Activity_Main.class);
                 break;
             case "deleteChild":
                 Toast.makeText(getApplicationContext(), "Perfil eliminado", Toast.LENGTH_SHORT).show();
                 model.setTemp_child(null);
-                goToActivity_Main();
+                goToActivity(Activity_Main.class);
                 break;
             case "addRelationOfUserAndChild":
                 Toast.makeText(getApplicationContext(), "Se ha compartido este perfil", Toast.LENGTH_SHORT).show();
@@ -411,6 +424,9 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         }
     }
 
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();
@@ -439,21 +455,6 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         finish();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //startService(new Intent(this, NotificationService.class));
-        model.mam.finishActivity(this);
-    }
-
-    private void goToActivity (Class activity)
-    {
-        Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity))
-        { intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); }
-        startActivity(intent);
-    }
-
     private void goToActivity_UserLogin() {
         Toast.makeText(getApplicationContext(), "Has cerrado sesión.", Toast.LENGTH_SHORT).show();
         model.restart();
@@ -462,12 +463,26 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         finish();
     }
 
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     */
+    private void goToActivity (Class activity)
+    {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     * @param nameOfExtra Name of the extra to put in the intent
+     * @param extra Value of the extra to put in the intent
+     */
     private void goToActivity (Class activity, String nameOfExtra, String extra)
     {
         Intent intent = new Intent(this, activity);
         intent.putExtra(nameOfExtra, extra);
-        if (model.mam.activityIsAlreadyOpened(activity))
-        { intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); }
         startActivity(intent);
     }
 }

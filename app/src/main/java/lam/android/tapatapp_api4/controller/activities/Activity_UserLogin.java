@@ -81,8 +81,10 @@ public class Activity_UserLogin extends AppCompatActivity implements Result
         init_view_and_listeners();
     }
 
-    /** asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
-     * y le da funcionalidad a los botones anyadiendoles listeners */
+    /**
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
+     */
     private void init_view_and_listeners() {
         setContentView(R.layout.activity_user_login);
 
@@ -159,6 +161,9 @@ public class Activity_UserLogin extends AppCompatActivity implements Result
 
     // ---------------------------------------------------------------------- Server NegativeResult Methods
 
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
     @Override
     public void Response() {
         switch (model.getMethod()) {
@@ -175,6 +180,9 @@ public class Activity_UserLogin extends AppCompatActivity implements Result
         }
     }
 
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         model.setMethod(null);
@@ -198,24 +206,21 @@ public class Activity_UserLogin extends AppCompatActivity implements Result
             {
                 @Override public void onClick (DialogInterface dialog, int which)
                 {
-                    goToUserLogin();
+                    goToActivity(Activity_UserLogin.class);
                 }
             });
             alertDialog.create().show();
         }
     }
 
-    private void goToUserLogin() {
-        Intent intent = new Intent(this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     */
     private void goToActivity (Class activity)
     {
         Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity))
-        { intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); }
+        //if (model.mam.activityIsAlreadyOpened(activity)) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

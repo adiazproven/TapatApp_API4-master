@@ -30,12 +30,18 @@ public class TapatApp extends AppCompatActivity implements Result {
         tapatapp = findViewById(R.id.tapatappTV);
     }
 
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
     @Override
     public void Response() {
         model.setUserSession((User) model.getObject());
         goToMainActivity();
     }
 
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();

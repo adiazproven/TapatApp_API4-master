@@ -5,7 +5,6 @@ import android.util.Log;
 
 import java.util.List;
 
-import lam.android.tapatapp_api4.controller.activities.MyActivityManager;
 import lam.android.tapatapp_api4.model.connection.NegativeResult;
 import lam.android.tapatapp_api4.model.connection.requests.ChildDAO;
 import lam.android.tapatapp_api4.model.connection.interfaces.Result;
@@ -15,7 +14,7 @@ import lam.android.tapatapp_api4.model.connection.requests.UserDAO;
 
 public class Model implements OperationResult {
 
-    public MyActivityManager mam;
+    //public MyActivityManagerNO mam;
 
     private static Model instance;
     private Result result;
@@ -58,7 +57,7 @@ public class Model implements OperationResult {
         if (instance == null) {
             instance = new Model(context);
         }
-        if (instance.mam == null) instance.mam = new MyActivityManager();
+        //if (instance.mam == null) instance.mam = new MyActivityManagerNO();
         return instance;
     }
 

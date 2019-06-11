@@ -88,8 +88,10 @@ public class Activity_UserRegister extends AppCompatActivity implements Result
         init_view_and_listeners();
     }
 
-    /** asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
-     * y le da funcionalidad a los botones anyadiendoles listeners */
+    /**
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
+     */
     private void init_view_and_listeners() {
         setContentView(R.layout.activity_user_register);
 
@@ -165,11 +167,17 @@ public class Activity_UserRegister extends AppCompatActivity implements Result
 
     // -------------------------------------------------------------------------- On Server NegativeResult
 
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
     @Override
     public void Response() {
         finish();
     }
 
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();
@@ -203,13 +211,5 @@ public class Activity_UserRegister extends AppCompatActivity implements Result
         Intent intent = new Intent(this, Activity_UserLogin.class);
         startActivity(intent);
         finish();
-    }
-
-    private void goToActivity (Class activity)
-    {
-        Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity))
-        { intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); }
-        startActivity(intent);
     }
 }

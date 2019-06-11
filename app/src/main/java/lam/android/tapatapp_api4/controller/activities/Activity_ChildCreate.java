@@ -59,7 +59,6 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
 
     /**
      * Show error message inside the log. For testing.
-     *
      * @param o : string or object (toString) to show
      */
     private void showlog(Object o) {
@@ -70,7 +69,6 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
 
     /**
      * Show message on the screen (Toast) to quickly communicate something to the user.
-     *
      * @param s : message to show
      */
     private void showtoast(String s) {
@@ -82,7 +80,6 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
     /**
      * First, if it needs to show data, it loads it from the server database. Then, it initializes
      * the view (layout and components) and the listeners (and sets them).
-     *
      * @param savedInstanceState : bundle passed through the previous activity
      */
     @Override
@@ -99,8 +96,8 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
     }
 
     /**
-     * asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
-     * y le da funcionalidad a los botones anyadiendoles listeners
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
      */
     private void init_view_and_listeners() {
         setContentView(R.layout.activity_child_create);
@@ -149,7 +146,7 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
     // -------------------------------------------------------------- Action Bar Menu Initialization
 
     /**
-     * infla la barra de menu de arriba
+     * Shows (inflates) the menu bar on the top
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,7 +155,7 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
     }
 
     /**
-     * le da funcionalidad a los botones de la barra de menu
+     * Gives functionality to the menu bar buttons
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -177,6 +174,11 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
 
     // --------------------------------------------------------------------------------- Update View
 
+    /**
+     * Shows or hides information about the option selected (hours/percentage)
+     * Also shows error messages for the form fields.
+     * @return true if one or more form fields showed an error, false otherwise
+     */
     private boolean update_view() {
         boolean valido = true;
 
@@ -252,6 +254,10 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
 
     // ------------------------------------------------------------------------------------- Options
 
+    /**
+     * Creates a new Child object based on the user input on the form and adds it
+     * to the database.
+     */
     private void createChild() {
         String name;
         int treatment_id;
@@ -277,23 +283,20 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
         }
     }
 
-    // ------------------------------------------------------------------------ Start other Activity
+    // -------------------------------------------------------------------------- On Server Response
 
     /**
-     * se va a la Activity_Main y cierra esta
+     * Reacts to a server response. Reacts differently depending on the response.
      */
-    private void goToActivity_Main() {
-        goToActivity(Activity_Main.class);
-    }
-
-    // -------------------------------------------------------------------------- On Server NegativeResult
-
     @Override
     public void Response() {
         model.setTemp_child((Child) model.getObject());
-        goToActivity_Main();
+        goToActivity(Activity_Main.class);
     }
 
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();
@@ -310,32 +313,20 @@ public class Activity_ChildCreate extends AppCompatActivity implements Result {
             {
                 @Override public void onClick (DialogInterface dialog, int which)
                 {
-                    goToUserLogin();
+                    goToActivity(Activity_UserLogin.class);
                 }
             });
             alertDialog.create().show();
         }
     }
 
-    private void goToUserLogin() {
-        Intent intent = new Intent(this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //startService(new Intent(this, NotificationService.class));
-
-        model.mam.finishActivity(this);
-    }
-
-    private void goToActivity(Class activity) {
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     */
+    private void goToActivity (Class activity)
+    {
         Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity)) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        }
         startActivity(intent);
     }
 }

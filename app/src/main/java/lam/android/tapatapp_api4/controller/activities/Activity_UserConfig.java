@@ -102,8 +102,10 @@ public class Activity_UserConfig extends AppCompatActivity implements Result
         show_user();
     }
 
-    /** asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
-     * y le da funcionalidad a los botones anyadiendoles listeners */
+    /**
+     * Assigns a layout to this activity, initializes its interactive layout components and gives
+     * them functionality by adding new listeners to them.
+     */
     private void init_view_and_listeners()
     {
         setContentView(R.layout.activity_user_config);
@@ -151,14 +153,18 @@ public class Activity_UserConfig extends AppCompatActivity implements Result
 
     // -------------------------------------------------------------- Action Bar Menu Initialization
 
-    /** infla la barra de menu de arriba */
+    /**
+     * Shows (inflates) the menu bar on the top
+     */
     @Override public boolean onCreateOptionsMenu (Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
 
-    /** le da funcionalidad a los botones de la barra de menu */
+    /**
+     * Gives functionality to the menu bar buttons
+     */
     @Override public boolean onOptionsItemSelected (MenuItem item)
     {
         switch (item.getItemId())
@@ -342,6 +348,9 @@ public class Activity_UserConfig extends AppCompatActivity implements Result
         alert.create().show();
     }
 
+    /**
+     * Reacts to a server response. Reacts differently depending on the response.
+     */
     @Override
     public void Response() {
         switch (model.getMethod()){
@@ -374,6 +383,9 @@ public class Activity_UserConfig extends AppCompatActivity implements Result
     }
 
     //TODO ARACELI dónde pongo el mensaje para avisar de que el correo ya está en uso?
+    /**
+     * Reacts to a server negative (error) response. Reacts differently depending on the response.
+     */
     @Override
     public void NegativeResponse() {
         NegativeResult negativeResult = model.getOnError();
@@ -394,24 +406,21 @@ public class Activity_UserConfig extends AppCompatActivity implements Result
             {
                 @Override public void onClick (DialogInterface dialog, int which)
                 {
-                    goToUserLogin();
+                    goToActivity(Activity_UserLogin.class);
                 }
             });
             alertDialog.create().show();
         }
     }
 
-    private void goToUserLogin() {
-        Intent intent = new Intent(this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
+    /**
+     * Goes to the activity specified in the parenthesis.
+     * @param activity Class object to specify to what activity to go
+     */
     private void goToActivity (Class activity)
     {
         Intent intent = new Intent(this, activity);
-        if (model.mam.activityIsAlreadyOpened(activity))
-        { intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); }
+        //if (model.mam.activityIsAlreadyOpened(activity)) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }
