@@ -142,10 +142,10 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.imageView_awakeHistory:
-                        goToActivity_ListOfTaps("awake");
+                        goToActivity(Activity_ListOfTaps.class, "type", "awake");
                         break;
                     case R.id.imageView_eyepatchHistory:
-                        goToActivity_ListOfTaps("eyepatch");
+                        goToActivity(Activity_ListOfTaps.class, "type", "eyepatch");
                         break;
                     case R.id.button_ok:
                         if (!update_view()) modifyProfile();
@@ -380,17 +380,6 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
         //return child;
     }*/
 
-    // ------------------------------------------------------------------------ Start other Activity
-
-    void goToActivity_ListOfTaps(String type) // "type" puede ser "eyepatch" o "awake" (tambien le pasa el ID_OF_CHILD)
-    {
-        update_view();
-
-        //model.setTemp_child(generateChildFromForm());
-
-        goToActivity(Activity_ListOfTaps.class, "type", type);
-    }
-
     // -------------------------------------------------------------------- Server NegativeResult Listener
 
     /**
@@ -442,19 +431,16 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
             {
                 @Override public void onClick (DialogInterface dialog, int which)
                 {
-                    goToUserLogin();
+                    goToActivity(Activity_UserLogin.class);
                 }
             });
             alertDialog.create().show();
         }
     }
 
-    private void goToUserLogin() {
-        Intent intent = new Intent(this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
+    /**
+     * Goes to activity User Login and also restarts the model temporarily saved data to avoid contradictions.
+     */
     private void goToActivity_UserLogin() {
         Toast.makeText(getApplicationContext(), "Has cerrado sesión.", Toast.LENGTH_SHORT).show();
         model.restart();

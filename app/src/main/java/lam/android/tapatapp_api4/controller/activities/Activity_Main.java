@@ -204,7 +204,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
      */
     private void checkChild(int numberOfChildren) {
         if (numberOfChildren == 0) {
-            goToActivity_MainEmpty();
+            goToActivity(Activity_MainEmpty.class);
         } else if (numberOfChildren == 1) {
             model.setMethod("getOneChildByUser");
             model.getOneChildByUser(model.getUserSession().getId());
@@ -267,8 +267,9 @@ public class Activity_Main extends AppCompatActivity implements Result {
     }
 
     /**
-     * Update View - Este metodo comprueba las variables que tengan que ver con lo que se muestra en
-     * pantalla para cambiar las propiedades graficas necesarias de los componentes del layout.
+     * Shows a different picture depending if the Child object temporarily saved in the model (temp_child)
+     * is awake/not, has eyepatch on/not. Also shows how many more hours the child has to be wearing
+     * the eyepatch.
      */
     private void updateView() {
         if (model.getTemp_child() != null) {
@@ -293,18 +294,6 @@ public class Activity_Main extends AppCompatActivity implements Result {
     private String convertSecondsToTime(int seconds) {
         String time = MyTimeStamp.now().plusSeconds(seconds).format3();
         return time;
-    }
-
-    private void goToActivity_UserLogin() {
-        Intent intent = new Intent(Activity_Main.this, Activity_UserLogin.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private void goToActivity_MainEmpty() {
-        Intent intent = new Intent(Activity_Main.this, Activity_MainEmpty.class);
-        startActivity(intent);
-        finish();
     }
 
     private void setTempChild(Child child) {
@@ -530,7 +519,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
                 break;*/
             case "getLogout":
                 model.restart();
-                goToActivity_UserLogin();
+                goToActivity(Activity_UserLogin.class);
                 break;
         }
     }
@@ -559,7 +548,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
             Log.i("ERROR MAIN", negativeResult.getMessage() + negativeResult.getCode());
         } else if (negativeResult.getCode() == 0) {
             showlog(negativeResult.getMessage());
-            goToActivity_MainEmpty();
+            goToActivity(Activity_MainEmpty.class);
         } else {
             Log.i("ERROR MAIN ELSE", negativeResult.getMessage() + negativeResult.getCode());
         }

@@ -76,16 +76,23 @@ public class Activity_MainEmpty extends AppCompatActivity implements Result
         setContentView(R.layout.activity_welcome);
 
         Button buttonCrearPerfil = findViewById(R.id.button_createChild);
+        Button boton_reload = findViewById(R.id.button_reload);
 
         OnClickListener listener = new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.getId() == R.id.button_createChild)
-                    goToActivity_ChildCreate();
+                switch (view.getId()) {
+                    case R.id.button_reload:
+                        // Y aqui que ?
+                        break;
+                    case R.id.button_createChild:
+                        goToActivity_ChildCreate();
+                }
             }
         };
 
         buttonCrearPerfil.setOnClickListener(listener);
+        boton_reload.setOnClickListener(listener);
     }
 
     // -------------------------------------------------------------- Action Bar Menu Initialization

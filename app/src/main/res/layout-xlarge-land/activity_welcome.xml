@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/button_reload_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#701A79A8"
+        android:text="↻"
+        android:textSize="36sp" />
+
     <ImageView
         android:id="@+id/imageView_background"
         android:layout_width="match_parent"
