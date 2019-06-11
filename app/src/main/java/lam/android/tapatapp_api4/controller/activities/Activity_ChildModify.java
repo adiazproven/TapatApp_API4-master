@@ -97,10 +97,14 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
 
         model = Model.getInstance(getApplicationContext());
         model.setResult(this);
-        child = model.getTemp_child();
-
-        init_view_and_listeners();
-        load_view();
+        if(model.getTemp_child() != null){
+            model.setMethod("getChildByID");
+            model.getChildByID(model.getTemp_child().getId());
+        }else{
+            showtoast("El nino no existe.");
+            goToActivity_Main();
+            finish();
+        }
     }
 
     /** asigna una layout a esta activity, inicializa los componentes que vayan a ser interactivos,
@@ -382,6 +386,11 @@ public class Activity_ChildModify extends AppCompatActivity implements Result
     @Override
     public void Response() {
         switch (model.getMethod()) {
+            case "getChildByID":
+               child = (Child) model.getObject();
+                init_view_and_listeners();
+                load_view();
+                break;
             case "modifyChild":
                 model.setTemp_child(child);
                 goToActivity_Main();

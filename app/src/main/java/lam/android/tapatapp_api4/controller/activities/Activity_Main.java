@@ -83,7 +83,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
     private void showtoast(String a, String b) {
         Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
         if (!b.isEmpty()) {
-            Toast toast = Toast.makeText(getApplicationContext(), b, Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), b, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
         }
@@ -450,7 +450,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
             } /* if (old_awakeTap == null && awakeTap == null) {
                 changeStatusAwake();
             }*/
-        } else if (addEyepatchTap) {
+        } else if (addEyepatchTap && old_awakeTap != null && awakeTap != null) {
             addEyepatchTap = false;
             if (old_eyepatchTap != null && eyepatchTap != null && old_eyepatchTap.getId() == eyepatchTap.getId()) {
                 showlog("BOOLENA22222");
@@ -484,8 +484,10 @@ public class Activity_Main extends AppCompatActivity implements Result {
     private void setHoursLeft() {
         showlog(MyTimeStamp.now().plusSeconds(model.getTemp_child().getTreatment_time_today()).format3());
         if (!model.getTemp_child().isWearingEyepatch()) {
-        } else if (model.getTemp_child().isWearingEyepatch() || model.getTemp_child().isAwake() || !model.getTemp_child().isAwake()) {
-            textView_hoursLeft.setText(MyTimeStamp.now().plusSeconds(model.getTemp_child().getTreatment_time_today()).format3());
+        } else if (model.getTemp_child().isWearingEyepatch() || model.getTemp_child().isAwake() ) { //|| !model.getTemp_child().isAwake()
+            int hoursLeft = model.getTemp_child().getTreatment_time_today() - (int) (long) - MyTimeStamp.now().minus(eyepatchTap.getInit_date());
+            showlog("hoursLeft "+ hoursLeft); // BIEN
+            textView_hoursLeft.setText(MyTimeStamp.now().plusSeconds(hoursLeft).format3());
         }
         if (awakeTap != null) {
             showtoast("Actualizado", awakeTap.getInit_date().toString());
