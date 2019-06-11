@@ -35,7 +35,7 @@
             android:text="@string/textView_childName" />
 
         <EditText
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúáéíóú"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúàèìòùÁÉÍÓÚÀÈÌÒÙ"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAlignment="center"

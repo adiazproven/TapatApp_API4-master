@@ -361,6 +361,28 @@ public class Activity_ListOfTaps extends AppCompatActivity implements Result {
 
         if (negativeResult.getCode() == 0) showtoast(negativeResult.getMessage());
         else showtoast(negativeResult.getMessage());
+
+        // SI NO HAY CONEXION (error -777) MUESTRA UNA VENTANITA. Al darle a OK, te lleva a la Activity User Login.
+        if (negativeResult.getCode() == -777)
+        {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Error de conexion");
+            alertDialog.setMessage("No se ha podido conectar con el servidor");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener ()
+            {
+                @Override public void onClick (DialogInterface dialog, int which)
+                {
+                    goToUserLogin();
+                }
+            });
+            alertDialog.create().show();
+        }
+    }
+
+    private void goToUserLogin() {
+        Intent intent = new Intent(this, Activity_UserLogin.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

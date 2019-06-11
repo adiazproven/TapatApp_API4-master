@@ -1,7 +1,9 @@
 package lam.android.tapatapp_api4.controller.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -185,14 +187,28 @@ public class Activity_UserLogin extends AppCompatActivity implements Result
             mensajeDeError_username.setText(negativeResult.getMessage());
             mensajeDeError_password.setText(negativeResult.getMessage());
         }
+
+        // SI NO HAY CONEXION (error -777) MUESTRA UNA VENTANITA. Al darle a OK, te lleva a la Activity User Login.
+        if (negativeResult.getCode() == -777)
+        {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Error de conexion");
+            alertDialog.setMessage("No se ha podido conectar con el servidor");
+            alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener ()
+            {
+                @Override public void onClick (DialogInterface dialog, int which)
+                {
+                    goToUserLogin();
+                }
+            });
+            alertDialog.create().show();
+        }
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //startService(new Intent(this, NotificationService.class));
-        model.mam.finishActivity(this);
+    private void goToUserLogin() {
+        Intent intent = new Intent(this, Activity_UserLogin.class);
+        startActivity(intent);
+        finish();
     }
 
     private void goToActivity (Class activity)

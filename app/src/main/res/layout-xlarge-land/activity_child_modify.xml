@@ -34,7 +34,7 @@
             app:fontFamily="casual" />
 
         <EditText
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúáéíóú"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúàèìòùÁÉÍÓÚÀÈÌÒÙ"
             android:id="@+id/editText_childName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

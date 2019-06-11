@@ -34,7 +34,7 @@
             app:fontFamily="casual" />
 
         <EditText
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúáéíóú"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áéíóúàèìòùÁÉÍÓÚÀÈÌÒÙ"
             android:id="@+id/editText_childName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,7 +117,6 @@
                     android:id="@+id/editText_hoursOrPercentage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_weight="80"
                     android:background="@android:drawable/editbox_background"
                     android:enabled="true"
