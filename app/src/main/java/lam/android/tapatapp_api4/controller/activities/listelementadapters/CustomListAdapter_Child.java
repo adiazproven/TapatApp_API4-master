@@ -60,8 +60,13 @@ public class CustomListAdapter_Child implements ListAdapter
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.list_element_child, null);
 
-            TextView childButton = convertView.findViewById(R.id.tapTypeInit);
-            childButton.setText(list.get(position).getName());
+            TextView childButton = convertView.findViewById(R.id.textView_tapTypeInit);
+            childButton.
+                    setText(
+                            list.
+                                    get(
+                                            position)
+                                    .getName());
         }
         return convertView;
     }
