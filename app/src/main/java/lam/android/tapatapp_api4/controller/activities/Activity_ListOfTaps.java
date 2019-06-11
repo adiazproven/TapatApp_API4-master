@@ -366,8 +366,8 @@ public class Activity_ListOfTaps extends AppCompatActivity implements Result {
         if (negativeResult.getCode() == -777)
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Error de conexion");
-            alertDialog.setMessage("No se ha podido conectar con el servidor");
+            alertDialog.setTitle(R.string.conectionErrorTitle);
+            alertDialog.setMessage(R.string.conectionErrorMesasge);
             alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener ()
             {
                 @Override public void onClick (DialogInterface dialog, int which)

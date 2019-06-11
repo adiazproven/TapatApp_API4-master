@@ -36,4 +36,6 @@
     <string name="new_password">Contraseña nueva:</string>
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="conectionErrorTitle">Error de conexion</string>
+    <string name="conectionErrorMesasge">Intentelo de nuevo mas tarde</string>
 </resources>
