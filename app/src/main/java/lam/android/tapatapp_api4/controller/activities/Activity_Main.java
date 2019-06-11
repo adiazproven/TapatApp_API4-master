@@ -372,7 +372,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
             if (old_awakeTap != null && old_awakeTap.getId() == awakeTap.getId()) {
                 changeStatusAwake();
             }
-        } else if (addEyepatchTap && old_awakeTap != null && awakeTap != null) {
+        } else if (addEyepatchTap && old_awakeTap != null && awakeTap != null && model.getTemp_child().getTreatment_time_today() > 0) {
             addEyepatchTap = false;
             if (old_eyepatchTap != null && eyepatchTap != null && old_eyepatchTap.getId() == eyepatchTap.getId()) {
                 changeStatusEyepatch();

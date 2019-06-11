@@ -159,44 +159,6 @@ public class TapDAO {
 
     // ----------------------------------------------------- GET -----------------------------------------------------
 
-    /**
-     * Enviamos una petición al servidor, para que recoja todos los taps de un child de la base de datos, esperamos respuesta.
-     * Al obtenerla, activamos el listener de la clase desde donde se ha llamado este método, cambiamos el valor
-     * de responseresult.
-     *
-     * @param child_id el id del child del cual se quieren saber todos los taps
-     */
-    public void getTapsByChild(String child_id, final OperationResult operationResult) {
-        HashMap<String, String> parametersList = new HashMap<>();
-        parametersList.put("id", child_id);
-        setRequest_url("taps_by_child", parametersList);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, request_url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray a = response.getJSONArray("data");
-                    List<Tap> taps = new ArrayList<>();
-                    for (int i = 0; i < a.length(); i++) {
-                        JSONObject o = a.getJSONObject(i);
-                        showlog("TAP RESPONSE: " + o.toString());
-                        Tap tap = getTap(o);
-                        taps.add(tap);
-                    }
-                    operationResult.setTaps(taps);
-                } catch (JSONException e) {
-                    showlog("ERROR JSON: " + "E - " + e.getMessage());//TESTER
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                showlog("ERROR: " + "E - " + error.getMessage());
-            }
-        });
-        MyRequestQueue.getInstance(context).addToRequestQueue(request);
-        setRequest_url_Empty();
-    }
-
     public void getTapsByChildAndStatus(String child_id, String status_id, String today, String yesterday, final OperationResult operationResult) {
         HashMap<String, String> parametersList = new HashMap<>();
         parametersList.put("child_id", child_id);
@@ -239,42 +201,6 @@ public class TapDAO {
         MyRequestQueue.getInstance(context).addToRequestQueue(request);
         setRequest_url_Empty();
     }
-
-    /**
-     * Enviamos una petición al servidor, para que recoja un tap según el id de la base de datos, esperamos respuesta.
-     * Al obtenerla, activamos el listener de la clase desde donde se ha llamado este método, cambiamos el valor
-     * de responseresult.
-     *
-     * @param tap_id del tap que queremos encontrar
-     */
-    /*public void getTapByID(String tap_id, final OperationResult operationResult) {
-        HashMap<String, String> parametersList = new HashMap<>();
-        parametersList.put("id", tap_id);
-        setRequest_url("tap_by_id", parametersList);
-        showlog("URL: " + request_url);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, request_url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject mJsonObject = response.getJSONObject("data");
-                    Tap tap = getTap(mJsonObject);
-                    showlog("TAP: " + tap.toString());
-                    operationResult.setObject(tap);
-                } catch (JSONException e) {
-                    showlog("ERROR JSON: " + "E - " + e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                showlog("ERROR: " + "E - " + error.getMessage());
-            }
-        });
-        MyRequestQueue.getInstance(context).addToRequestQueue(request);
-        setRequest_url_Empty();
-
-    }*/
 
     // ----------------------------------------------------- POST -----------------------------------------------------
 
