@@ -277,12 +277,14 @@ public class Activity_Main extends AppCompatActivity implements Result {
             if (!model.getTemp_child().isAwake()) {
                 imageView_awakeAsleep.setImageResource(R.drawable.asleep);
                 imageView_eyepatch.setImageResource(R.drawable.withouteyepatch);
+                textView_hoursLeft.setText("");
             } else {
                 imageView_awakeAsleep.setImageResource(R.drawable.awake);
                 if (model.getTemp_child().isWearingEyepatch()) {
                     imageView_eyepatch.setImageResource(R.drawable.witheyepatch);
                 } else {
                     imageView_eyepatch.setImageResource(R.drawable.withouteyepatch);
+                    textView_hoursLeft.setText("");
                 }
             }
             setHoursLeft();
@@ -508,6 +510,7 @@ public class Activity_Main extends AppCompatActivity implements Result {
                 eyepatchTap = null;
                 model.getTemp_child().setTreatment_time_today((Integer) model.getObject());
                 setHoursLeft();
+                textView_hoursLeft.setText("---");
                 break;
             /*case "modifyAwakeAverageOfChild":
                 model.modifyAwakeAverageOfChild(modifiedAwakeAverage, time, idOfChild);
