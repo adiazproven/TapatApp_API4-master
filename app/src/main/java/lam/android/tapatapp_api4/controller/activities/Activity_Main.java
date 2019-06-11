@@ -81,12 +81,12 @@ public class Activity_Main extends AppCompatActivity implements Result {
      * @param a : message to show
      */
     private void showtoast(String a, String b) {
-        Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
         if (!b.isEmpty()) {
             Toast toast = Toast.makeText(getApplicationContext(), b, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
-        }
+        }*/
     }
 
     // -------------------------------------------------------------- Action Bar Menu Initialization

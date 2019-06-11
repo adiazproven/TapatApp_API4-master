@@ -3,7 +3,7 @@
     <string name="imageView_background">imageView_background</string>
     <string name="textView_childName">Nombre del niño/a</string>
     <string name="title_eyepatch_hours_remaining">Fin del tratamiento diario:</string>
-    <string name="default_hours_remaining">12 h</string>
+    <string name="default_hours_remaining">---</string>
     <string name="eyepatchbutton">eyepatchbutton</string>
     <string name="awakebutton">awakebutton</string>
     <string name="counter_type">Tipo de contador:</string>
