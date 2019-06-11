@@ -4,4 +4,5 @@
     <item android:title="Borrar registros" android:id="@+id/menuItem_delete"></item>
     <item android:title="Configuración de usuario" android:id="@+id/menuItem_userConfig"></item>
     <item android:title="Cerrar sesión" android:id="@+id/menuItem_logout"></item>
+    <item android:title="Volver" android:id="@+id/menuItem_goBack"></item>
 </menu>
