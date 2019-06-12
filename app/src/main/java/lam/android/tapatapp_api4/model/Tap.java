@@ -164,6 +164,7 @@ public class Tap
 
         if (hour < 10) sb.append("0");
         sb.append(hour);
+        sb.append(":");
         if (minute < 10) sb.append("0");
         sb.append(minute);
 
