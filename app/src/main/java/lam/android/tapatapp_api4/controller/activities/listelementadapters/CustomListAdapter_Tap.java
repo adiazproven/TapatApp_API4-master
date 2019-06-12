@@ -97,13 +97,15 @@ public class CustomListAdapter_Tap extends BaseAdapter //implements DatePickerFr
         else str = "---";
         buttonChangeDateEnd.setText(str);
 
-        str = tap.getInit_date().getHour() + ":"
-                + tap.getInit_date().getMinute();
+        //str = tap.getInit_date().getHour() + ":"
+        //        + tap.getInit_date().getMinute();
+        str = tap.getInitHourAndMinute();
         buttonChangeHourInit.setText(str);
 
         if (tap.getEnd_date() != null)
-        str = tap.getEnd_date().getHour() + ":"
-                + tap.getEnd_date().getMinute();
+        //str = tap.getEnd_date().getHour() + ":"
+        //        + tap.getEnd_date().getMinute();
+            str = tap.getEndHourAndMinute();
         else str = "---";
         buttonChangeHourEnd.setText(str);
 

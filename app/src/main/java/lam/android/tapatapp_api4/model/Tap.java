@@ -134,4 +134,39 @@ public class Tap
                 ", child_id=" + child_id +
                 '}';
     }
+
+    public String getInitHourAndMinute ()
+    {
+        return getHourAndMinute("init");
+    }
+
+    public String getEndHourAndMinute ()
+    {
+        return getHourAndMinute("end");
+    }
+
+    private String getHourAndMinute (String initOrEnd)
+    {
+        StringBuilder sb = new StringBuilder();
+        int hour = 0;
+        int minute = 0;
+
+        if (initOrEnd.equals("init"))
+        {
+            hour = getInit_date().getHour();
+            minute = getInit_date().getHour();
+        }
+        else //if (initOrEnd.equals("end"))
+        {
+            hour = getInit_date().getHour();
+            minute = getInit_date().getHour();
+        }
+
+        if (hour < 10) sb.append("0");
+        sb.append(hour);
+        if (minute < 10) sb.append("0");
+        sb.append(minute);
+
+        return sb.toString();
+    }
 }
